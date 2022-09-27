@@ -1,4 +1,4 @@
-fetch("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/san%20salvador/last7days?unitGroup=us&include=days&key=R4MJ285W29V7Z6EU59WLMD6GP&contentType=json", {
+fetch("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/san%20salvador/last7days?unitGroup=metric&elements=datetime%2Cname%2Ctemp%2Cicon&include=days&key=R4MJ285W29V7Z6EU59WLMD6GP&contentType=json", {
   "method": "GET",
   "headers": {
   }
