@@ -1,23 +1,128 @@
-fetch("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/san%20salvador/last7days?unitGroup=metric&elements=datetime%2Cname%2Ctemp%2Cicon&include=days&key=R4MJ285W29V7Z6EU59WLMD6GP&contentType=json", {
-  "method": "GET",
-  "headers": {
-  }
-  })
-.then(response => {
-  console.log(response);
-})
-.catch(err => {
-  console.error(err);
-});
+const render = document.getElementById("render");
+const result = document.getElementById("result");
+const calculate = document.getElementById("calculate");
 
+const response = fetch(
+	"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/san%20salvador/last7days?unitGroup=metric&elements=datetime%2Cname%2Ctemp%2Cicon&include=days&key=R4MJ285W29V7Z6EU59WLMD6GP&contentType=json",
+	{
+		method: "GET",
+		headers: {},
+	}
+)
+	.then((response) => {
+		console.log(response);
+		if (!response.ok) {
+			throw response; //check the http response code and if isn't ok then throw the response as an error
+		}
 
-//using the API response
+		return response.json(); //parse the result as JSON
+	})
+	.then((response) => {
+		//response now contains parsed JSON ready for use
+		processWeatherData(response);
+		gettingHigher(response);
+	})
+	.catch((errorResponse) => {
+		if (errorResponse.text) {
+			//additional error information
+			errorResponse.text().then((errorMessage) => {
+				//errorMessage now returns the response body which includes the full error message
+			});
+		} else {
+			//no additional error information
+		}
+	});
+
 function processWeatherData(response) {
-  
-    var location=response.resolvedAddress;
-    var days=response.days;
-    console.log("Location: "+location);
-    for (var i=0;i<days.length;i++) {
-      console.log(days[i].datetime+": tempmax="+days[i].tempmax+", tempmin="+days[i].tempmin);
-    }
-  }
+	var days = response.days;
+	console.log(days);
+	render.innerHTML =
+		/*`<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title text-black">Fecha: ${days[0].datetime}</h5>
+      <p class="card-text text-black">${days[0].temp}</p>
+    </div>
+  </div>`*/
+		`<div class="row">
+    <div class="col-sm-2">
+<div class="card">
+  <div class="card-body text-black">
+    <h5 class="card-title">Fecha: ${days[0].datetime}</h5>
+    <p class="card-text">Temperatura: ${days[0].temp} °C</p>
+  </div>
+</div>
+</div>
+<div class="col-sm-2">
+<div class="card">
+  <div class="card-body text-black">
+    <h5 class="card-title">Fecha: ${days[1].datetime}</h5>
+    <p class="card-text">Temperatura: ${days[1].temp} °C</p>
+  </div>
+</div>
+</div>
+<div class="col-sm-2">
+<div class="card">
+  <div class="card-body text-black">
+    <h5 class="card-title">Fecha: ${days[2].datetime}</h5>
+    <p class="card-text">Temperatura: ${days[2].temp} °C</p>
+  </div>
+</div>
+</div>
+<div class="col-sm-2">
+<div class="card">
+  <div class="card-body text-black">
+    <h5 class="card-title">Fecha: ${days[3].datetime}</h5>
+    <p class="card-text">Temperatura: ${days[3].temp} °C</p>
+  </div>
+</div>
+</div>
+<div class="col-sm-2">
+<div class="card">
+  <div class="card-body text-black">
+    <h5 class="card-title">Fecha: ${days[4].datetime}</h5>
+    <p class="card-text">Temperatura: ${days[4].temp} °C</p>
+  </div>
+</div>
+</div>
+<div class="col-sm-2">
+<div class="card">
+  <div class="card-body text-black">
+    <h5 class="card-title">Fecha: ${days[5].datetime}</h5>
+    <p class="card-text">Temperatura: ${days[5].temp} °C</p>
+  </div>
+</div>
+</div>
+<div class="col-sm-2"></div>
+<div class="col-sm-2"></div>
+<div class="col-sm-2">
+<div class="card">
+  <div class="card-body text-black">
+    <h5 class="card-title">Fecha: ${days[6].datetime}</h5>
+    <p class="card-text">Temperatura: ${days[6].temp} °C</p>
+  </div>
+</div>
+</div>
+<div class="col-sm-2">
+<div class="card">
+  <div class="card-body text-black">
+    <h5 class="card-title">Fecha: ${days[7].datetime}</h5>
+    <p class="card-text">Temperatura: ${days[7].temp} °C</p>
+  </div>
+</div>
+</div>
+</div>`;
+}
+
+function gettingHigher(response) {
+	var days = response.days;
+	var maxTemp = 0;
+
+	for (i = 0; i < days.length; i++) {
+		if (days[i].temp > maxTemp) {
+			maxTemp = days[i].temp;
+		}
+	}
+	console.log(maxTemp);
+	result.innerHTML = `<div class="text-center mb-5">La temperatura máxima es: <span class="text-primary"> ${maxTemp} °C</span></div>`;
+}
+

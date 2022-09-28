@@ -1,29 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <!-- Bootstrap css -->
-     <link
-     href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
-     rel="stylesheet"
-     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
-     crossorigin="anonymous"
-   />
-   <link
-     href="https://fonts.googleapis.com/css?family=Poppins"
-     rel="stylesheet"
-   />
-    <title>Weather</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap css -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+  <title>Weather</title>
 </head>
-<body>
-        <!-- Bootstrap script -->
-        <script
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
-        crossorigin="anonymous"
-      ></script>
-      <script src="./index.js"></script>
+
+<body class="bg-dark text-light vh-100 d-flex flex-column">
+  <div class="container-fluid bg-primary justify-content-center align-items-center">
+    <h3 class="mt-4">Calculando el clima mayor</h3>
+  </div>
+  <section class="d-flex mt-4 justify-content-center align-items-center"><p>Clima en San Salvador en los ultimos 8 días, obtenido con la API: <a class="text-primary" href="https://www.visualcrossing.com/weather/weather-data-services#" target="_blank">Visual crossing weather</a></p>
+  </section>
+  <section class="d-flex mt-4 h-50" id="render"></section>
+
+  <!---<section class="container-fluid text-center">
+    <button  type="submit" id = "calculate" class="btn bg-primary btn-lg text-light">Calcular mayor temperatura</button>
+  </section>-->
+  <section class="d-flex mt-4 h-50 text-center" id="result"></section>
+
+  <!-- Bootstrap script -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+  <script src="./index.js"></script>
 </body>
+
 </html>
