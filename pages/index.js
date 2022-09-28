@@ -1,9 +1,11 @@
+//getting html elements by their id as consts
 const render = document.getElementById("render");
 const result = document.getElementById("result");
 const calculate = document.getElementById("calculate");
 
+//fetching API, structure was given by the website documentation
 const response = fetch(
-	"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/san%20salvador/last7days?unitGroup=metric&elements=datetime%2Cname%2Ctemp%2Cicon&include=days&key=R4MJ285W29V7Z6EU59WLMD6GP&contentType=json",
+	"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/san%20salvador/last7days?unitGroup=metric&elements=datetime%2Cname%2Ctemp%2Cicon&include=days&key=SNQGW3UHTFCSCSV33MAG56QKK&contentType=json",
 	{
 		method: "GET",
 		headers: {},
@@ -20,7 +22,10 @@ const response = fetch(
 	.then((response) => {
 		//response now contains parsed JSON ready for use
 		processWeatherData(response);
-		gettingHigher(response);
+		//event listener for button click
+		calculate.addEventListener("click", function (e) {
+			gettingHigher(response);
+		});
 	})
 	.catch((errorResponse) => {
 		if (errorResponse.text) {
@@ -33,17 +38,11 @@ const response = fetch(
 		}
 	});
 
+//shows the temperature info
 function processWeatherData(response) {
 	var days = response.days;
 	console.log(days);
-	render.innerHTML =
-		/*`<div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title text-black">Fecha: ${days[0].datetime}</h5>
-      <p class="card-text text-black">${days[0].temp}</p>
-    </div>
-  </div>`*/
-		`<div class="row">
+	render.innerHTML = `<div class="row">
     <div class="col-sm-2">
 <div class="card">
   <div class="card-body text-black">
@@ -112,7 +111,7 @@ function processWeatherData(response) {
 </div>
 </div>`;
 }
-
+//gets the higher temperature and shows it
 function gettingHigher(response) {
 	var days = response.days;
 	var maxTemp = 0;
@@ -125,4 +124,3 @@ function gettingHigher(response) {
 	console.log(maxTemp);
 	result.innerHTML = `<div class="text-center mb-5">La temperatura máxima es: <span class="text-primary"> ${maxTemp} °C</span></div>`;
 }
-
