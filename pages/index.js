@@ -122,5 +122,5 @@ function gettingHigher(response) {
 		}
 	}
 	console.log(maxTemp);
-	result.innerHTML = `<div class="text-center mb-5">La temperatura máxima es: <span class="text-primary"> ${maxTemp} °C</span></div>`;
+	result.innerHTML = `<div class="text-center mb-5">La temperatura máxima es: <span class="text-warning"> ${maxTemp} °C</span></div>`;
 }
